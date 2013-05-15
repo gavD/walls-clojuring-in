@@ -5,3 +5,4 @@ lib
 classes
 target
 .lein-repl-history
+*.swp

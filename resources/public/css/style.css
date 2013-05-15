@@ -1,7 +1,28 @@
+body, * {
+    margin:0;
+    padding: 0;
+}
+
+body { 
+    padding: 20px;
+}
+
+td {
+    padding: 0;
+    margin: 0;
+}
+
+pre {
+    font-family: courier, monospace;
+    font-size: 20px;
+}
+
 h1 {
    width: 100%;
-   text-align: center;
    color: #00C;
    font-size: 40pt;
    font-family: sans-serif;
+}
+h2 {
+    margin-top: 11px;
 }

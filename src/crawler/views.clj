@@ -40,13 +40,35 @@
     )
   )
 
+
   (defn show-map []
 
     (defn show-datum[datum]
       (html
-        [:td datum
-            (if (= 4 datum) (html [:pre "+-+\n| |\n+ +"]))
-            (if (= 3 datum) (html [:pre "+ +\n|  \n+-+"]))
+        [:td 
+            (html [:pre
+                (apply str
+                    ; TODO how if/else?
+
+                    ; top of box
+                    (if (not= (bit-and datum 1) 0) (str "+ +\n"))
+                    (if (= (bit-and datum 1) 0) (str "+-+\n"))
+
+                    ; left side of box
+                    (if (not= (bit-and datum 8) 0) (str " "))
+                    (if (= (bit-and datum 8) 0) (str "|"))
+                    ;datum
+
+                    ; right side of box
+                    (if (not= (bit-and datum 2) 0) (str "  \n"))
+                    (if (= (bit-and datum 2) 0) (str " |\n"))
+
+                    ; base of box
+                    (if (not= (bit-and datum 4) 0) (str "+ +"))
+                    (if (= (bit-and datum 4) 0) (str "+-+"))
+
+                )
+            ])
         ]
       )
     )
