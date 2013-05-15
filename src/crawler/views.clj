@@ -40,42 +40,44 @@
     )
   )
 
-
   (defn show-map []
-
-    (defn show-datum[datum]
+    (defn show-datum[idx datum]
       (html
         [:td 
             (html [:pre
-                (apply str
-                    ; TODO how if/else?
+              (apply str
+                ; TODO how if/else?
 
-                    ; top of box
-                    (if (not= (bit-and datum 1) 0) (str "+ +\n"))
-                    (if (= (bit-and datum 1) 0) (str "+-+\n"))
+                ; top of box
+                (if (not= (bit-and datum 1) 0) (str "+ +\n"))
+                (if (= (bit-and datum 1) 0) (str "+-+\n"))
 
-                    ; left side of box
-                    (if (not= (bit-and datum 8) 0) (str " "))
-                    (if (= (bit-and datum 8) 0) (str "|"))
-                    ;datum
+                ; left side of box
+                (if (not= (bit-and datum 8) 0) (str " "))
+                (if (= (bit-and datum 8) 0) (str "|"))
 
-                    ; right side of box
-                    (if (not= (bit-and datum 2) 0) (str "  \n"))
-                    (if (= (bit-and datum 2) 0) (str " |\n"))
+                (if (= idx 1 (str "X")))
 
-                    ; base of box
-                    (if (not= (bit-and datum 4) 0) (str "+ +"))
-                    (if (= (bit-and datum 4) 0) (str "+-+"))
+;                (if(= (idx x) "X"))
+;                (if(not= (idx x) str "Y"))
+                ;datum
 
-                )
-            ])
+                ; right side of box
+                (if (not= (bit-and datum 2) 0) (str "  \n"))
+                (if (= (bit-and datum 2) 0) (str " |\n"))
+
+                ; base of box
+                (if (not= (bit-and datum 4) 0) (str "+ +"))
+                (if (= (bit-and datum 4) 0) (str "+-+"))
+             )
+          ])
         ]
       )
     )
 
     (defn show-row[row]
       (html
-        [:tr (apply str (map show-datum row))]
+        [:tr (apply str (map-indexed show-datum row))]
       )
     )
   
