@@ -1,6 +1,6 @@
-(ns compojure.crawler.routes
+(ns crawler.routes
   (:use compojure.core
-        compojure.crawler.views
+        crawler.views
         [hiccup.middleware :only (wrap-base-url)])
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
@@ -8,6 +8,13 @@
 
 (defroutes main-routes
   (GET "/" [] (index-page))
+  (GET ["/room/:x/:y" :x #"[0-9]+" :y #"[0-9]+"] [x y]
+    (room-page 
+       (Integer/parseInt x)
+       (Integer/parseInt y)
+    )
+  )
+
   (route/resources "/")
   (route/not-found "Page not found"))
 
