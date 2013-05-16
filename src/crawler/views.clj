@@ -29,13 +29,24 @@
 
   (def mask ((rooms y) x))
 
+  (defn get-cardinal [mask bit label xMove yMove]
+
+        (if (not= (bit-and mask bit) 0)
+          (html [:li [:a {:href (str "/room/" (+ x xMove) "/" (+ y yMove))} (str label)]])
+          (html [:li (str label)])
+        )
+  )
+
   (defn get-exits [mask x y]
     (html
       [:ul
-        (if (not= (bit-and mask 1) 0) (html [:li [:a {:href (str "/room/" x "/" (- y 1))} "North"]]))
-        (if (not= (bit-and mask 2) 0) (html [:li [:a {:href (str "/room/" (+ x 1) "/" y)} "East"]]))
-        (if (not= (bit-and mask 4) 0) (html [:li [:a {:href (str "/room/" x "/" (+ y 1))} "South"]]))
-        (if (not= (bit-and mask 8) 0) (html [:li [:a {:href (str "/room/" (- x 1) "/" y)} "West"]]))
+         (get-cardinal mask 1 "North" 0 -1)
+         (get-cardinal mask 2 "East" 1 0)
+         (get-cardinal mask 4 "South" 0 1)
+         (get-cardinal mask 8 "West" -1 0)
+  ;      (if (not= (bit-and mask 2) 0) (html [:li [:a {:href (str "/room/" (+ x 1) "/" y)} "East"]]))
+;        (if (not= (bit-and mask 4) 0) (html [:li [:a {:href (str "/room/" x "/" (+ y 1))} "South"]]))
+ ;       (if (not= (bit-and mask 8) 0) (html [:li [:a {:href (str "/room/" (- x 1) "/" y)} "West"]]))
       ]
     )
   )
@@ -87,8 +98,8 @@
       (include-css "/css/style.css")]
     [:body
       [:h1 "A room"]
-      [:h2 "Map of area"]
       [:p "You are in a room with mask = " mask " at (" x ", " y "). Exits are:"]
       [:p (get-exits mask x y)]
+      [:h2 "Map of area"]
       [:table (show-map)]
     ]))
