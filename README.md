@@ -65,12 +65,12 @@ So, here are some example room shapes:
     |2        2 = 2
     +-+
 
-    +-+         Exits East, South and West
-     1        1 = 1 
-    + +
+    + +        Exit north
+    |1|        1 = 1 
+    +-+
 
-    + +         Exit any direction
-     0
-    + +
+    +-+       
+    |0|        No exits
+    +-+
 
  rooms are stored in a 2D array
