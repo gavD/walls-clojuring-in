@@ -119,7 +119,7 @@
         [:div {:class "row"}
           [:div {:class "span4 description"}
             [:h1 "A room"]
-            [:p "You are in a room with mask = " mask " at (" x ", " y "). Exits are:"]
+            [:p "You are in a room"]
           ]
           [:div {:class "span4 controls"}
             [:p (get-exits mask x y)]
