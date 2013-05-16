@@ -1,7 +1,7 @@
 Walls Clojuring In
 ==================
 
-A simple dungeon crawler implemented in JavaScript.
+A simple dungeon crawler implemented in Clojure.
 
 Objective
 ---------
