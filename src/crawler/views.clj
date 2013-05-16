@@ -46,31 +46,28 @@
 
       (defn show-datum[colidx datum]
         (html
-          [:td 
+          [:td
               (html [:pre
                 (apply str
                   ; TODO how if/else?
-  
+
                   ; top of box
-                  (if (not= (bit-and datum 1) 0) (str "+ +\n"))
-                  (if (= (bit-and datum 1) 0) (str "+-+\n"))
-  
+                  (if (not= (bit-and datum 1) 0) (str "+ +\n") (str "+-+\n"))
+
                   ; left side of box
-                  (if (not= (bit-and datum 8) 0) (str " "))
-                  (if (= (bit-and datum 8) 0) (str "|"))
-  
+                  (if (not= (bit-and datum 8) 0) (str " ") (str "|"))
+
+                  ; Show player character
                   (if (and (= colidx x) (= rowidx y))
                       (str "x")
                       (str " ")
                   )
-  
+
                   ; right side of box
-                  (if (not= (bit-and datum 2) 0) (str " \n"))
-                  (if (= (bit-and datum 2) 0) (str "|\n"))
-  
+                  (if (not= (bit-and datum 2) 0) (str " \n") (str "|\n"))
+
                   ; base of box
-                  (if (not= (bit-and datum 4) 0) (str "+ +"))
-                  (if (= (bit-and datum 4) 0) (str "+-+"))
+                  (if (not= (bit-and datum 4) 0) (str "+ +") (str "+-+"))
                )
             ])
           ]
@@ -81,7 +78,7 @@
         [:tr (apply str (map-indexed show-datum row))]
       )
     )
-  
+
     (apply str (map-indexed show-row rooms))
   )
   (html5
@@ -90,8 +87,8 @@
       (include-css "/css/style.css")]
     [:body
       [:h1 "A room"]
-      [:p "You are in a room with mask = " mask "  at (" x ", " y "). Exits are:"]
-      [:p (get-exits mask x y)]
       [:h2 "Map of area"]
+      [:p "You are in a room with mask = " mask " at (" x ", " y "). Exits are:"]
+      [:p (get-exits mask x y)]
       [:table (show-map)]
     ]))
