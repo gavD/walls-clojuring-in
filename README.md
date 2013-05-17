@@ -24,6 +24,19 @@ a servlet container:
 
     lein ring uberwar
 
+Running unit tests
+------------------
+
+Unit tests are implemented in Midje. Run them all with:
+
+    lein midje
+
+If you're developing, you can run:
+
+    lein midje autotest
+
+Then they will run on every change.
+
 Implementation details
 ----------------------
 
