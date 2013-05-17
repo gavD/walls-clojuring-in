@@ -1,18 +1,6 @@
 (ns crawler.views
+  (:require [crawler.data :as data])
   (:use [hiccup core page]))
-
-; Layout of the rooms. These are all bitmasks, from top clockwise
-; bits are:
-;  1 - exit to north
-;  2 - exit to east
-;  4 - exit to south
-;  8 - exit to west
-(def rooms [
-    [4  4   4  6  8  2  14 12]
-    [7  11  9  7  10 10 15 13]
-    [3  10  10 11 8  2  9  1]
-])
-
 
 ; Function to render the homepage
 (defn index-page []
@@ -33,7 +21,7 @@
 ; Function to render a room as user explores
 (defn room-page [x y]
 
-  (def mask ((rooms y) x))
+  (def mask ((data/rooms y) x))
 
   (defn get-cardinal [mask bit label xMove yMove]
     (if (not= (bit-and mask bit) 0)
@@ -103,7 +91,7 @@
       )
     )
 
-    (apply str (map-indexed show-row rooms))
+    (apply str (map-indexed show-row data/rooms))
   )
 
   ; render the HTML for the page
