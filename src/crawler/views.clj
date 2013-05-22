@@ -4,34 +4,43 @@
   (use [ring.util.response :only [redirect]]) 
 )
 
-; Function to render the homepage
-(defn index-page []
-  (html5
+(def header
     [:head
       [:title "Walls Clojuring In"]
       (include-css "/css/style.css")
       (include-css "/flatui/css/bootstrap.css")
       (include-css "/flatui/css/flat-ui.css")
     ]
+)
+(def footer
+  [:footer
+    [:hr]
+    "Walls Clojuring In - a barely functional dungeon crawler!"
+  ]
+)
+
+; Function to render the homepage
+(defn index-page []
+  (html5
+    header
     [:body
       [:div {:class "container"}
         [:h1 "Walls Clojuring In"]
         [:p "A dungeon crawler written in Clojure"]
-        [:a {:href "/room/0/0"} "Start adventuring!"]]]))
+        [:a {:href "/room/0/0"} "Start adventuring!"]]
+    footer
+]))
 
 (defn complete-page []
   (html5
-     [:head
-      [:title "Walls Clojuring In"]
-      (include-css "/css/style.css")
-      (include-css "/flatui/css/bootstrap.css")
-      (include-css "/flatui/css/flat-ui.css")
-    ]
+    header
     [:body
       [:div {:class "container"}
         [:h1 "A winner is you!"]
         [:p "Well done, you escaped the dungeon!"]
-        [:a {:href "/"} "Back to the homepage!"]]]))
+        [:a {:href "/"} "Back to the homepage!"]]
+    footer
+    ]))
 ; TODO make the href pull from the route rather than being hard coded
 
 ; Function to render a room as user explores
@@ -126,7 +135,6 @@
       (include-css "/flatui/css/bootstrap.css")
       (include-css "/flatui/css/flat-ui.css")
       (include-css "/css/style.css")
-      (include-js "/js/jquery-1.9.1.min.js" "/js/controls.js")
     ]
     [:body {:class "palette-night-dark"}
       [:div {:class "container"}
@@ -146,7 +154,10 @@
         [:div {:class "row"}
           [:div {:class "span12"} "<a href=\"/\">Back to home</a>"]
         ]
-    ]])
+    ]
+    (include-js "/js/jquery-1.9.1.min.js" "/js/controls.js")
+    footer
+  ])
 
     ; If the end of the level has been reached...
   ;  (html5 [:p "A winner is you!" ])
