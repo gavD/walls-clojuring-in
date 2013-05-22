@@ -102,7 +102,6 @@
     (apply str (map-indexed show-row data/rooms))
   )
 
-;  (if(= (int (bit-and (data/rooms 0) 0)) 0)
   (if(= (bit-and ((data/rooms y) x) 16) 0)
  ; render the HTML for the page
   (html5
@@ -131,7 +130,10 @@
           [:div {:class "span12"} "<a href=\"/\">Back to home</a>"]
         ]
     ]])
-    (html5 [:p "A winer is u!" ])
+
+    ; If the end of the level has been reached...
+    (html5 [:p "A winner is you!" ])
+    ; TODO perhaps redirect?
   )
 )
  
