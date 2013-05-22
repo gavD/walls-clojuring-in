@@ -66,64 +66,64 @@
     )
   )
 
-  ; Function to render the playing area as HTML
-  (defn show-map []
 
-    ; Function to show a row of thmap
-    (defn show-row[rowidx row]
+  (defn show-row[rowidx row]
 
-      ; Function to show an individual room on the map
-      (defn show-datum[colidx datum]
-        (html
-          [:td
-              (html [:pre
-                (apply str
-                  ; top of box
-                  (if (= rowidx 0)
-                    ; only show left wall if first col
-                    (if (= colidx 0)
-                      (if (not= (bit-and datum 1) 0) (str "+ +\n") (str "+-+\n"))
-                      (if (not= (bit-and datum 1) 0) (str " +\n") (str "-+\n"))
-                    )
-                  )
-                  ; left side of box - only show left wall if first col
-                  (if (= colidx 0)
-                    (if (not= (bit-and datum 8) 0) (str " ") (str "|"))
-                  )
-
-                  ; Draw the current centre of the current room
-                  (if (and (= colidx x) (= rowidx y))
-                    ; Show player character if s/he is in this room
-                    (str "X")
-
-                    ; If the current tile has the End level bitmask,
-                    ; display the tile
-                    (if(not= (bit-and datum 16) 0)
-                      (str "O")
-                      (str " ")
-                    )
-                    ;; TODO this needs refactoring
-                  )
-
-                  ; right side of box
-                  (if (not= (bit-and datum 2) 0) (str " \n") (str "|\n"))
-
-                  ; base of box - only show left wall if first col
-                  (if (= colidx 0)
-                    (if (not= (bit-and datum 4) 0) (str "+ +") (str "+-+"))
-                    (if (not= (bit-and datum 4) 0) (str " +") (str "-+"))
-                  )
-               )
-            ])
-          ]
-        )
-      )
-
+    ; Function to show an individual room on the map
+    (defn show-datum[colidx datum]
       (html
-        [:tr (apply str (map-indexed show-datum row))]
+        [:td
+          [:pre
+            (apply str
+              ; top of box
+              (if (= rowidx 0)
+                ; only show left wall if first col
+                (if (= colidx 0)
+                  (if (not= (bit-and datum 1) 0) (str "+ +\n") (str "+-+\n"))
+                  (if (not= (bit-and datum 1) 0) (str " +\n") (str "-+\n"))
+                )
+              )
+              ; left side of box - only show left wall if first col
+              (if (= colidx 0)
+                (if (not= (bit-and datum 8) 0) (str " ") (str "|"))
+              )
+
+              ; Draw the current centre of the current room
+              (if (and (= colidx x) (= rowidx y))
+                ; Show player character if s/he is in this room
+                (str "X")
+
+                ; If the current tile has the End level bitmask,
+                ; display the tile
+                (if(not= (bit-and datum 16) 0)
+                  (str "O")
+                  (str " ")
+                )
+                ;; TODO this needs refactoring
+              )
+
+              ; right side of box
+              (if (not= (bit-and datum 2) 0) (str " \n") (str "|\n"))
+
+              ; base of box - only show left wall if first col
+              (if (= colidx 0)
+              (if (not= (bit-and datum 4) 0) (str "+ +") (str "+-+"))
+                (if (not= (bit-and datum 4) 0) (str " +") (str "-+"))
+              )
+            )
+          ]
+        ]
       )
     )
 
+    (html
+      [:tr (apply str (map-indexed show-datum row))]
+    )
+  )
+
+  ; Function to render the playing area as HTML
+  (defn show-map []
+    ; Function to show a row of the map
     (apply str (map-indexed show-row data/rooms))
   )
 
