@@ -1,6 +1,5 @@
 document.onkeydown = function(evt) {
     evt = evt || window.event;
-console.log(evt.keyCode);
     switch (evt.keyCode) {
         case 37:
             window.location =  $('#cardinalWest a').attr('href');
