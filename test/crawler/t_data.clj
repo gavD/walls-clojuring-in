@@ -11,6 +11,5 @@
   )
   (fact "Data has a bitmask for exits"
     data/bmexit => 16
-
   )
 )

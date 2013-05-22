@@ -8,6 +8,7 @@
 
 (defroutes main-routes
   (GET "/" [] (index-page))
+  (GET "/win" [] (complete-page))
   (GET ["/room/:x/:y" :x #"[0-9]+" :y #"[0-9]+"] [x y]
     (room-page 
        (Integer/parseInt x)
