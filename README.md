@@ -87,3 +87,19 @@ So, here are some example room shapes:
     +-+
 
  rooms are stored in a 2D array
+
+Game over
+---------
+
+Levels are complete when you land on a tile that has the "end level" bitmask
+
+    16 End level bitmask
+
+Monsters
+--------
+
+Fitting into the walls bitmask, monsters are on:
+
+    32  Troll
+    64  Goblin
+

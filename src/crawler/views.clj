@@ -66,10 +66,18 @@
                     (if (not= (bit-and datum 8) 0) (str " ") (str "|"))
                   )
 
-                  ; Show player character
+                  ; Draw the current centre of the current room
                   (if (and (= colidx x) (= rowidx y))
-                      (str "X")
+                    ; Show player character if s/he is in this room
+                    (str "X")
+
+                    ; If the current tile has the End level bitmask,
+                    ; display the tile
+                    (if(not= (bit-and datum 16) 0)
+                      (str "O")
                       (str " ")
+                    )
+                    ;; TODO this needs refactoring
                   )
 
                   ; right side of box
@@ -94,7 +102,9 @@
     (apply str (map-indexed show-row data/rooms))
   )
 
-  ; render the HTML for the page
+;  (if(= (int (bit-and (data/rooms 0) 0)) 0)
+  (if(= (bit-and ((data/rooms y) x) 16) 0)
+ ; render the HTML for the page
   (html5
     [:head
       [:title "Walls Clojuring In: A Room"]
@@ -107,7 +117,7 @@
         [:div {:class "row"}
           [:div {:class "span4 description"}
             [:h1 "A room"]
-            [:p "You are in a room"]
+            [:p "You are in a room at " x ", " y]
           ]
           [:div {:class "span4 controls"}
             [:p (get-exits mask x y)]
@@ -120,4 +130,8 @@
         [:div {:class "row"}
           [:div {:class "span12"} "<a href=\"/\">Back to home</a>"]
         ]
-    ]]))
+    ]])
+    (html5 [:p "A winer is u!" ])
+  )
+)
+ 
