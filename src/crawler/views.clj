@@ -4,6 +4,7 @@
   (use [ring.util.response :only [redirect]]) 
 )
 
+; Snippets of HTML
 (def header
     [:head
       [:title "Walls Clojuring In"]
@@ -19,8 +20,9 @@
   ]
 )
 
-; Function to render the homepage
-(defn index-page []
+(defn index-page
+  "Function to render the homepage"
+  []
   (html5
     header
     [:body
@@ -31,7 +33,9 @@
     footer
 ]))
 
-(defn complete-page []
+(defn complete-page
+  "For when the user has found the exit"
+  []
   (html5
     header
     [:body
@@ -43,19 +47,24 @@
     ]))
 ; TODO make the href pull from the route rather than being hard coded
 
-; Function to render a room as user explores
-(defn room-page [x y]
+(defn room-page
+  "Render a room as user explores"
+  [x y]
 
   (def mask ((data/rooms y) x))
 
-  (defn get-cardinal [mask bit label xMove yMove]
+  (defn get-cardinal
+    "See if cardinal identified by bit is available in the room with mask mask"
+    [mask bit label xMove yMove]
     (if (not= (bit-and mask bit) 0)
       (html [:li {:id (str "cardinal" label)} [:a {:class "btn btn-primary" :href (str "/room/" (+ x xMove) "/" (+ y yMove))} (str label)] ] )
       (html [:li {:id (str "cardinal" label)} [:a {:class "btn btn-danger" :href "#" } (str label)] ])
     )
   )
 
-  (defn get-exits [mask x y]
+  (defn get-exits
+    "Interrogate mask and work out which exits it has"
+    [mask]
     (html
       [:ul {:class "compass"}
          (get-cardinal mask 1 "North" 0 -1)
@@ -66,11 +75,13 @@
     )
   )
 
+  (defn show-row
+    "Render a row of the map as HTML"
+    [rowidx row]
 
-  (defn show-row[rowidx row]
-
-    ; Function to show an individual room on the map
-    (defn show-datum[colidx datum]
+    (defn show-datum
+      "Show an individual room on the map"
+      [colidx datum]
       (html
         [:td
           [:pre
@@ -121,9 +132,10 @@
     )
   )
 
-  ; Function to render the playing area as HTML
-  (defn show-map []
-    ; Function to show a row of the map
+  ; Function to 
+  (defn show-map
+    "render the playing area as HTML"
+    []
     (apply str (map-indexed show-row data/rooms))
   )
 
@@ -144,7 +156,7 @@
             [:p "You are in a room at " x ", " y]
           ]
           [:div {:class "span4 controls"}
-            [:p (get-exits mask x y)]
+            [:p (get-exits mask)]
           ]
           [:div {:class "span4 map"}
             [:h2 "Map of area"]
@@ -159,10 +171,8 @@
     footer
   ])
 
-    ; If the end of the level has been reached...
-  ;  (html5 [:p "A winner is you!" ])
+  ; If the end of the level has been reached...
     (redirect "/win")
-    ; TODO perhaps redirect?
   )
 )
  
