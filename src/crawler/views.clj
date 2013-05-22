@@ -126,6 +126,7 @@
       (include-css "/flatui/css/bootstrap.css")
       (include-css "/flatui/css/flat-ui.css")
       (include-css "/css/style.css")
+      (include-js "/js/jquery-1.9.1.min.js" "/js/controls.js")
     ]
     [:body {:class "palette-night-dark"}
       [:div {:class "container"}
