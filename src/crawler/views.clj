@@ -140,36 +140,32 @@
   )
 
   (if(= (bit-and ((data/rooms y) x) 16) 0)
- ; render the HTML for the page
-  (html5
-    [:head
-      [:title "Walls Clojuring In: A Room"]
-      (include-css "/flatui/css/bootstrap.css")
-      (include-css "/flatui/css/flat-ui.css")
-      (include-css "/css/style.css")
-    ]
-    [:body {:class "palette-night-dark"}
-      [:div {:class "container"}
-        [:div {:class "row"}
-          [:div {:class "span4 description"}
-            [:h1 "A room"]
-            [:p "You are in a room at " x ", " y]
-          ]
-          [:div {:class "span4 controls"}
-            [:p (get-exits mask)]
-          ]
-          [:div {:class "span4 map"}
-            [:h2 "Map of area"]
-            [:table {:class "map"} (show-map)]
-          ]
-        ]
-        [:div {:class "row"}
-          [:div {:class "span12"} "<a href=\"/\">Back to home</a>"]
-        ]
-    ]
-    (include-js "/js/jquery-1.9.1.min.js" "/js/controls.js")
-    footer
-  ])
+    ; render the HTML for the page
+    (html5
+      [:head
+        [:title "Walls Clojuring In: A Room"]
+        (include-css "/flatui/css/bootstrap.css")
+        (include-css "/flatui/css/flat-ui.css")
+        (include-css "/css/style.css")]
+      [:body {:class "palette-night-dark"}
+        [:div {:class "container"}
+          [:div {:class "row"}
+            [:div {:class "span4 description"}
+              [:h1 "A room"]
+              [:p "You are in a room at " x ", " y]
+            ]
+            [:div {:class "span4 controls"}
+              [:p (get-exits mask)]
+            ]
+            [:div {:class "span4 map"}
+              [:h2 "Map of area"]
+              [:table {:class "map"} (show-map)]
+            ]]
+          [:div {:class "row"}
+            [:div {:class "span12"} "<a href=\"/\">Back to home</a>"]
+          ]]
+      (include-js "/js/jquery-1.9.1.min.js" "/js/controls.js")
+      footer])
 
   ; If the end of the level has been reached...
     (redirect "/win")
