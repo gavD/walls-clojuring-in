@@ -1,7 +1,9 @@
 (ns crawler.views
   (:require [crawler.data :as data])
   (:use [hiccup core page])
-  (use [ring.util.response :only [redirect]]) 
+  (use [ring.util.response :only [redirect]]
+    router.core
+  )
 )
 
 ; Snippets of HTML
@@ -29,7 +31,7 @@
       [:div {:class "container"}
         [:h1 "Walls Clojuring In"]
         [:p "A dungeon crawler written in Clojure"]
-        [:a {:href "/room/0/0"} "Start adventuring!"]]
+        [:a {:href (url :room :x 0 :y 0)} "Start adventuring!"]]
     footer
 ]))
 
@@ -42,10 +44,9 @@
       [:div {:class "container"}
         [:h1 "A winner is you!"]
         [:p "Well done, you escaped the dungeon!"]
-        [:a {:href "/"} "Back to the homepage!"]]
+        [:a {:href (url :home)} "Back to the homepage!"]]
     footer
     ]))
-; TODO make the href pull from the route rather than being hard coded
 
 (defn room-page
   "Render a room as user explores"
@@ -57,7 +58,7 @@
     "See if cardinal identified by bit is available in the room with mask mask"
     [mask bit label xMove yMove]
     (if (not= (bit-and mask bit) 0)
-      (html [:li {:id (str "cardinal" label)} [:a {:class "btn btn-primary" :href (str "/room/" (+ x xMove) "/" (+ y yMove))} (str label)] ] )
+      (html [:li {:id (str "cardinal" label)} [:a {:class "btn btn-primary" :href (str (url :room :x (+ x xMove) :y (+ y yMove)))} (str label)] ] )
       (html [:li {:id (str "cardinal" label)} [:a {:class "btn btn-danger" :href "#" } (str label)] ])
     )
   )
@@ -168,7 +169,7 @@
       footer])
 
   ; If the end of the level has been reached...
-    (redirect "/win")
+    (redirect (url :win))
   )
 )
  
