@@ -2,8 +2,9 @@
   (:use midje.sweet)
   (:require [crawler.views :as views]))
 
-(facts "about `index-page`"
-  (fact "Index page renders a link to the game" 
-    (views/index-page) => (contains "Start adventuring!")
+(facts "about views"
+
+  (fact "Footer contains links"
+    views/footer => (contains "Walls Clojuring In - a barely functional dungeon crawler!")
   )
 )
