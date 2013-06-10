@@ -103,3 +103,7 @@ Fitting into the walls bitmask, monsters are on:
     32  Troll
     64  Goblin
 
+CI
+==
+
+CI from [Travis CI](https://travis-ci.org/gavD/walls-clojuring-in)

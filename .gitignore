@@ -4,6 +4,5 @@ pom.xml
 lib
 classes
 target
-.lein-repl-history
+.lein-*
 *.swp
-.lein-failures
