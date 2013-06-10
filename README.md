@@ -33,7 +33,7 @@ Unit tests are implemented in Midje. Run them all with:
 
 If you're developing, you can run:
 
-    lein midje autotest
+    lein midje :autotest
 
 Then they will run on every change.
 
